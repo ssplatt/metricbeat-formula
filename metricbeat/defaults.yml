@@ -1,0 +1,10 @@
+# vim: ft=yaml
+# Defaults for metricbeat
+
+metricbeat:
+  enabled: false
+  pkg: metricbeat
+  service:
+    name: metricbeat
+    state: dead
+    enable: false

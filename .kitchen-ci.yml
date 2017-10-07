@@ -1,0 +1,37 @@
+# vim: ft=yaml
+---
+driver:
+  name: linode
+
+provisioner:
+  name: salt_solo
+  is_file_root: true
+  salt_copy_filter:
+    - .kitchen
+    - .git
+  state_top:
+    base:
+      "*":
+        - test.mockup
+        - metricbeat
+  pillars:
+    top.sls:
+      base:
+        '*':
+          - metricbeat
+
+platforms:
+  - name: debian_jessie
+
+suites:
+  - name: default
+    provisioner:
+      pillars:
+        metricbeat.sls:
+          metricbeat:
+            enabled: true
+
+  - name: custom
+    provisioner:
+      pillars-from-files:
+        metricbeat.sls: pillar-custom.sls

@@ -1,0 +1,37 @@
+# vim: ft=yaml
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: salt_solo
+  is_file_root: true
+  salt_copy_filter:
+    - .kitchen
+    - .git
+  state_top:
+    base:
+      "*":
+        - test.mockup
+        - metricbeat
+  pillars:
+    top.sls:
+      base:
+        '*':
+          - metricbeat
+
+platforms:
+  - name: bento/debian-8
+
+suites:
+  - name: default
+    provisioner:
+      pillars:
+        metricbeat.sls:
+          metricbeat:
+            enabled: true
+
+  - name: custom
+    provisioner:
+      pillars-from-files:
+        metricbeat.sls: pillar-custom.sls
