@@ -9,8 +9,8 @@ describe file('/etc/metricbeat/metricbeat.yml') do
     it { should be_owned_by 'root' }
     it { should be_grouped_into 'root' }
     its(:content) { should match /^metricbeat\.modules:/ }
-    its(:content) { should match /^- enabled: true/ }
-    its(:content) { should match /^  module: system/ }
+    its(:content) { should match /enabled: true/ }
+    its(:content) { should match /module: system/ }
     its(:content) { should match /^  metricsets:/ }
     its(:content) { should match /^  - cpu/ }
     its(:content) { should match /^  - load/ }
